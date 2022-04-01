@@ -34,6 +34,8 @@
 
 #include "asio/detail/push_options.hpp"
 
+#include <iostream>
+
 namespace asio {
 
 namespace detail
@@ -67,6 +69,8 @@ inline std::size_t write(SyncWriteStream& s, const ConstBufferSequence& buffers,
       is_const_buffer_sequence<ConstBufferSequence>::value
     >::type*)
 {
+  std::cout << "MARTIN write con 4 args + sfinae" << std::endl;
+
   return detail::write_buffer_sequence(s, buffers,
       asio::buffer_sequence_begin(buffers),
       ASIO_MOVE_CAST(CompletionCondition)(completion_condition), ec);
@@ -102,6 +106,8 @@ inline std::size_t write(SyncWriteStream& s, const ConstBufferSequence& buffers,
       is_const_buffer_sequence<ConstBufferSequence>::value
     >::type*)
 {
+  std::cout << "MARTIN write con 3 args + sfinae" << std::endl;
+
   asio::error_code ec;
   std::size_t bytes_transferred = write(s, buffers,
       ASIO_MOVE_CAST(CompletionCondition)(completion_condition), ec);
